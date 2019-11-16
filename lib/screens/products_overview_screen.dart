@@ -1,17 +1,59 @@
 import 'package:flutter/material.dart';
+
+//import 'package:provider/provider.dart';
+//import 'package:shop_app/providers/products_provider.dart';
 import 'package:shop_app/widgets/products_grid.dart';
 
-class ProductsOverviewScreen extends StatelessWidget {
-//  final List<Product> loadedProducts = [];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Shop'),
-      ),
-      body: new ProductsGrid(),
-    );
-  }
+enum FilterOptions {
+  Favorites,
+  All,
 }
 
+class ProductsOverviewScreen extends StatefulWidget {
+  @override
+  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  var _showFavs = false;
+  @override
+  Widget build(BuildContext context) {
+    //final productContainer = Provider.of<Products>(context,listen: false);
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorites) {
+                  //productContainer.showFavoritesOnly();
+                  _showFavs = true;
+                  print(_showFavs);
+                } else {
+                  //productContainer.showAll();
+                  _showFavs = false;
+                }
+              });
+            },
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Only Favorites'),
+                value: FilterOptions.Favorites,
+              ),
+              PopupMenuItem(
+                child: Text('Show All'),
+                value: FilterOptions.All,
+              ),
+            ],
+          ),
+        ],
+        title: Text('My Shop'),
+      ),
+
+      body: ProductsGrid(_showFavs),
+
+    );
+
+  }
+}
