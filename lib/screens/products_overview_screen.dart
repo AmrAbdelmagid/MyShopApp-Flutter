@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/cart.dart';
+import 'package:shop_app/screens/cart_screen.dart';
+import 'package:shop_app/widgets/badge.dart';
 
 //import 'package:provider/provider.dart';
 //import 'package:shop_app/providers/products_provider.dart';
@@ -16,6 +20,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showFavs = false;
+
   @override
   Widget build(BuildContext context) {
     //final productContainer = Provider.of<Products>(context,listen: false);
@@ -47,13 +52,22 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ],
           ),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              child: ch,
+              value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
+          ),
         ],
         title: Text('My Shop'),
       ),
-
       body: ProductsGrid(_showFavs),
-
     );
-
   }
 }
