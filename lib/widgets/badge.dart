@@ -9,7 +9,7 @@ class Badge extends StatelessWidget {
   }) : super(key: key);
 
   final Widget child;
-  final String value;
+  final int value;
   final Color color;
 
   @override
@@ -26,14 +26,14 @@ class Badge extends StatelessWidget {
             // color: Theme.of(context).accentColor,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: color != null ? color : Theme.of(context).errorColor,
+              color: value == 0 ? Theme.of(context).errorColor : Theme.of(context).accentColor,
             ),
             constraints: BoxConstraints(
               minWidth: 16,
               minHeight: 16,
             ),
             child: Text(
-              value,
+              value.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10,
