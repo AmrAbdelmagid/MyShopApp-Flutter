@@ -6,7 +6,6 @@ import 'package:shop_app/widgets/app_drawer.dart';
 import 'package:shop_app/widgets/user_product_item.dart';
 
 class UserProductsScreen extends StatelessWidget {
-
   static const routeName = '/user-products';
 
   @override
@@ -31,6 +30,7 @@ class UserProductsScreen extends StatelessWidget {
           itemBuilder: (_, index) => Column(
             children: <Widget>[
               UserProductItem(
+                  productsData.items[index].id,
                   productsData.items[index].title,
                   productsData.items[index].imageUrl),
               Divider(),
